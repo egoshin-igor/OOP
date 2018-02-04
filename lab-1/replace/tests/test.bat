@@ -48,9 +48,9 @@ IF ERRORLEVEL 1 GOTO err
 FC /B output.txt longStringResult.txt
 IF ERRORLEVEL 1 GOTO err
 
-replace.exe treeLines.txt output.txt qwerty "Replacement completed"
+replace.exe threeLines.txt output.txt qwerty "Replacement completed"
 IF ERRORLEVEL 1 GOTO err
-FC /B output.txt treeLinesResult.txt
+FC /B output.txt threeLinesResult.txt
 IF ERRORLEVEL 1 GOTO err
 
 replace.exe bigFile.txt output.txt qwerty "Replacement completed"
