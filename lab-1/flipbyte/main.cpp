@@ -31,10 +31,10 @@ int main(int argc, char* argv[])
 	return 0;
 }
 
-bool StringToInt(const char* str, int& byte)
+bool StringToInt(const char* str, int& i)
 {
 	char* pLastChar = NULL;
-	byte = strtol(str, &pLastChar, 10);
+	i = strtol(str, &pLastChar, 10);
 	if (*str == '\0' || *pLastChar != '\0')
 	{
 		cout << "First argument's not a number\n";
