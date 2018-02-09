@@ -11,7 +11,7 @@ const int NOT_A_NUMBER_ERROR_CODE = 2;
 const int NOT_IN_NEED_RANGE_ERROR_CODE = 3;
 
 bool CorrectnessOfArgumentsAmount(int argc);
-bool StringToInt(const char* str, int& byte);
+bool StringToInt(const char* str, int& i);
 bool IntToByte(int i, uint8_t& byte);
 uint8_t FlipByte(uint8_t i);
 
@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
 		return NOT_IN_NEED_RANGE_ERROR_CODE;
 	uint8_t flipByte;
 	flipByte = FlipByte(byte);
-	cout << int(flipByte) << "\n";
+	cout << static_cast<int>(flipByte) << "\n";
 	return 0;
 }
 
@@ -50,7 +50,7 @@ bool IntToByte(int i, uint8_t& byte)
 		cout << "First argument must be a number in range 0 - 255\n";
 		return false;
 	}
-	byte = i;
+	byte = static_cast<uint8_t>(i);
 	return true;
 }
 
