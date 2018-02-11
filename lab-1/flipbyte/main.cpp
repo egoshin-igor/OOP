@@ -10,15 +10,18 @@ const int WRONG_AMOUNT_OF_ARGUMENTS_ERROR_CODE = 1;
 const int NOT_A_NUMBER_ERROR_CODE = 2;
 const int NOT_IN_NEED_RANGE_ERROR_CODE = 3;
 
+const int REQUIRED_NUMBER_OF_ARGUMENTS = 1;
+
+
 bool StringToInt(const char* str, int& i);
 bool IntToByte(int i, uint8_t& byte);
 uint8_t FlipByte(uint8_t i);
 
 int main(int argc, char* argv[])
 {
+	uint8_t byte;
 	int i;
-	uint8_t byte;;
-	if (argc != 2)
+	if (argc != REQUIRED_NUMBER_OF_ARGUMENTS + 1)
 	{
 		cout << "Type only one argument in this format:\n";
 		cout << "flipbyte.exe <input byte>\n";
