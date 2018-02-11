@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
 {
 	if (argc != REQUIRED_NUMBER_OF_ARGUMENTS + 1)
 	{
-		cout << "Type only one argument in this format:\n";
+		cout << "Type only 4 arguments in this format:\n";
 		cout << "replace.exe <input file> <output file> <search string> <replace string>\n";
 		return WRONG_AMOUNT_OF_ARGUMENTS_ERROR_CODE;
 	}
