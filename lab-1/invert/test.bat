@@ -3,7 +3,7 @@ set PROGRAM="%~1"
 %PROGRAM%
 IF NOT ERRORLEVEL 1 GOTO err
 
-%PROGRAM% tests\nonexistentInput.txt
+%PROGRAM% nonexistentInput.txt
 IF NOT ERRORLEVEL 2 GOTO err
 
 %PROGRAM% tests\incorrectFileContent.txt
