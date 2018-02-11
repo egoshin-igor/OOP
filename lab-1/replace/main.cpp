@@ -11,10 +11,8 @@ const int NOT_OPENED_IN_FILE_ERROR_CODE = 2;
 const int NOT_OPENED_OUT_FILE_ERROR_CODE = 3;
 const int SEARCH_STRING_LENGTH_ERROR_CODE = 4;
 
-bool CorrectnessOfArgumentsAmount(int argc);
-template <typename fileType>
-bool OpenFile(fileType& file, string fileName);
-bool StringLengthIsEmpty(string str);
+const int REQUIRED_NUMBER_OF_ARGUMENTS = 4;
+
 void TextProcessing(ifstream& inFile, ofstream& outFile, string searchString, string replaceString);
 // подфункция TextProcessing
 void ReplaceSubstrings(string& str, const string searchString, string replaceString);
@@ -22,55 +20,37 @@ void ReplaceSubstrings(string& str, const string searchString, string replaceStr
 
 int main(int argc, char* argv[])
 {
-	if (!CorrectnessOfArgumentsAmount(argc))
-		return WRONG_AMOUNT_OF_ARGUMENTS_ERROR_CODE;
-	string inFileName = argv[1];
-	string outFileName = argv[2];
-	ifstream inFile;
-	if (!OpenFile(inFile, inFileName))
-		return NOT_OPENED_IN_FILE_ERROR_CODE;
-	ofstream outFile;
-	if (!OpenFile(outFile, outFileName))
-		return NOT_OPENED_OUT_FILE_ERROR_CODE;
-	string searchString = argv[3];
-	string replaceString = argv[4];
-	if (StringLengthIsEmpty(searchString))
-		return SEARCH_STRING_LENGTH_ERROR_CODE;
-	TextProcessing(inFile, outFile, searchString, replaceString);
-	return 0;
-}
-
-bool CorrectnessOfArgumentsAmount(int argc)
-{
-	if (argc != 5)
+	if (argc != REQUIRED_NUMBER_OF_ARGUMENTS + 1)
 	{
 		cout << "Type only one argument in this format:\n";
 		cout << "replace.exe <input file> <output file> <search string> <replace string>\n";
-		return false;
+		return WRONG_AMOUNT_OF_ARGUMENTS_ERROR_CODE;
 	}
-	return true;
-}
 
-template <typename fileType>
-bool OpenFile(fileType& file, string fileName)
-{
-	file.open(fileName);
-	if (!file.is_open())
+	string inFileName = argv[1];
+	string outFileName = argv[2];
+	ifstream inFile(inFileName);
+	ofstream outFile(outFileName);
+	if (!inFile.is_open())
 	{
-		cout << "The File " << fileName << " can't be opened\n";
-		return false;
+		cout << "The File " << inFileName << " can't be opened\n";
+		return NOT_OPENED_IN_FILE_ERROR_CODE;
 	}
-	return true;
-}
+	if (!outFile.is_open())
+	{
+		cout << "The File " << outFileName << " can't be opened\n";
+		return NOT_OPENED_OUT_FILE_ERROR_CODE;
+	}
 
-bool StringLengthIsEmpty(string str)
-{
-	if (str == "")
+	string searchString = argv[3];
+	string replaceString = argv[4];
+	if (searchString == "")
 	{
 		cout << "The third argument can't be an empty string\n";
-		return true;
+		return SEARCH_STRING_LENGTH_ERROR_CODE;
 	}
-	return false;
+	TextProcessing(inFile, outFile, searchString, replaceString);
+	return 0;
 }
 
 void TextProcessing(ifstream& inFile, ofstream& outFile, string searchString, string replaceString)
