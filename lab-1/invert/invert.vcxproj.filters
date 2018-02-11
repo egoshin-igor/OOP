@@ -31,7 +31,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="tests\test.bat">
+    <None Include="test.bat">
       <Filter>Исходные файлы</Filter>
     </None>
   </ItemGroup>
