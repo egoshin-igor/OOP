@@ -6,11 +6,8 @@ IF NOT ERRORLEVEL 1 GOTO err
 %PROGRAM% nonexistentInput.txt
 IF NOT ERRORLEVEL 2 GOTO err
 
-%PROGRAM% tests\incorrectFileContent.txt
-IF NOT ERRORLEVEL 3 GOTO err
-
 %PROGRAM% tests\determinateZero.txt
-IF NOT ERRORLEVEL 4 GOTO err
+IF NOT ERRORLEVEL 3 GOTO err
 
 %PROGRAM% tests\unitMatrix.txt > tests\output.txt
 IF ERRORLEVEL 1 GOTO err
