@@ -56,8 +56,6 @@ int main(int argc, char* argv[])
 void TextProcessing(ifstream& inFile, ofstream& outFile, string searchString, string replaceString)
 {
 	string lineOfFile;
-	bool searchStringIsFound = false;
-	int firstIndex = 0, lastIndex = 0;
 	while (getline(inFile, lineOfFile))
 	{
 		ReplaceSubstrings(lineOfFile, searchString, replaceString);
