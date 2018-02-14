@@ -3,6 +3,7 @@
 и записывающей результат в выходной файл (отличный от входного).
 */
 #include "stdafx.h"
+#pragma optimize( "", off )
 
 using namespace std;
 
@@ -50,6 +51,14 @@ int main(int argc, char* argv[])
 		return SEARCH_STRING_LENGTH_ERROR_CODE;
 	}
 	TextProcessing(inFile, outFile, searchString, replaceString);
+
+	if (!outFile.flush())
+	{
+		cout << "Failed to save data on disk\n";
+		return 1;
+	}
+	inFile.close();
+	outFile.close();
 	return 0;
 }
 
