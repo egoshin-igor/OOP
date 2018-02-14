@@ -55,11 +55,6 @@ IF ERRORLEVEL 1 GOTO err
 FC /B tests\output.txt tests\threeLinesResult.txt
 IF ERRORLEVEL 1 GOTO err
 
-%PROGRAM% tests\bigFile.txt tests\output.txt qwerty "Replacement completed"
-IF ERRORLEVEL 1 GOTO err
-FC /B tests\output.txt tests\bigFileResult.txt
-IF ERRORLEVEL 1 GOTO err
-
 ECHO Program testing succeeded :-)
 EXIT
 
