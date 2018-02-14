@@ -14,9 +14,9 @@ const int SEARCH_STRING_LENGTH_ERROR_CODE = 4;
 
 const int REQUIRED_NUMBER_OF_ARGUMENTS = 4;
 
-void TextProcessing(ifstream& inFile, ofstream& outFile, string searchString, string replaceString);
+void ReplaceNeedSubstringsInTheText(ifstream& inFile, ofstream& outFile, string searchString, string replaceString);
 // подфункция TextProcessing
-void ReplaceSubstrings(string& str, const string searchString, string replaceString);
+void ReplaceSubstringsInTheString(string& str, const string searchString, string replaceString);
 // подфункция TextProcessing
 
 int main(int argc, char* argv[])
@@ -50,7 +50,7 @@ int main(int argc, char* argv[])
 		cout << "The third argument can't be an empty string\n";
 		return SEARCH_STRING_LENGTH_ERROR_CODE;
 	}
-	TextProcessing(inFile, outFile, searchString, replaceString);
+	ReplaceNeedSubstringsInTheText(inFile, outFile, searchString, replaceString);
 
 	if (!outFile.flush())
 	{
@@ -62,19 +62,19 @@ int main(int argc, char* argv[])
 	return 0;
 }
 
-void TextProcessing(ifstream& inFile, ofstream& outFile, string searchString, string replaceString)
+void ReplaceNeedSubstringsInTheText(ifstream& inFile, ofstream& outFile, string searchString, string replaceString)
 {
 	string lineOfFile;
 	while (getline(inFile, lineOfFile))
 	{
-		ReplaceSubstrings(lineOfFile, searchString, replaceString);
+		ReplaceSubstringsInTheString(lineOfFile, searchString, replaceString);
 		outFile << lineOfFile;
 		if (!inFile.eof())
 			outFile << "\n";
 	}
 }
 
-void ReplaceSubstrings(string& str, string searchString, string replaceString)
+void ReplaceSubstringsInTheString(string& str, string searchString, string replaceString)
 {
 	size_t lastIndex = 0;
 	size_t newIndex;
