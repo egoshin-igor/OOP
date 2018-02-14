@@ -9,8 +9,9 @@ IF NOT ERRORLEVEL 1 GOTO err
 %PROGRAM% tests\nonexistentInput.txt tests\output.txt abc wb
 IF NOT ERRORLEVEL 2 GOTO err
 
-%PROGRAM% tests\input.txt tests\lockedOutput.txt abc cab
-IF NOT ERRORLEVEL 3 GOTO err
+rem Убрал проверку на закрытый output, потому что после клонирования с гита файл locedOuput снимается с режима только для чтения
+rem %PROGRAM% tests\input.txt tests\lockedOutput.txt abc cab
+rem IF NOT ERRORLEVEL 3 GOTO err
 
 %PROGRAM% tests\input.txt tests\output.txt "" cab
 IF NOT ERRORLEVEL 4 GOTO err
