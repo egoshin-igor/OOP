@@ -25,19 +25,19 @@ IF NOT ERRORLEVEL 3 GOTO err
 IF NOT ERRORLEVEL 3 GOTO err
 
 %PROGRAM% 0 > tests\output.txt
-FC /B tests\output.txt tests\expectedOutputFor0.txt
+FC tests\output.txt tests\expectedOutputFor0.txt
 IF ERRORLEVEL 1 GOTO err
 
 %PROGRAM% 15 > tests\output.txt
-FC /B tests\output.txt tests\expectedOutputFor15.txt
+FC tests\output.txt tests\expectedOutputFor15.txt
 IF ERRORLEVEL 1 GOTO err
 
 %PROGRAM% 121 > tests\output.txt
-FC /B tests\output.txt tests\expectedOutputFor121.txt
+FC tests\output.txt tests\expectedOutputFor121.txt
 IF ERRORLEVEL 1 GOTO err
 
 %PROGRAM% 255 > tests\output.txt
-FC /B tests\output.txt tests\expectedOutputFor255.txt
+FC tests\output.txt tests\expectedOutputFor255.txt
 IF ERRORLEVEL 1 GOTO err
 
 ECHO Program testing succeeded :-)
