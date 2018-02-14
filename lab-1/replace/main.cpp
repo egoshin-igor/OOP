@@ -14,9 +14,9 @@ const int SEARCH_STRING_LENGTH_ERROR_CODE = 4;
 
 const int REQUIRED_NUMBER_OF_ARGUMENTS = 4;
 
-void ReplaceNeedSubstringsInTheText(ifstream& inFile, ofstream& outFile, string searchString, string replaceString);
+void ReplaceNeedSubstringsInTheText(ifstream& inFile, ofstream& outFile, const string searchString, const string replaceString);
 // подфункция TextProcessing
-void ReplaceSubstringsInTheString(string& str, const string searchString, string replaceString);
+void ReplaceSubstringsInTheString(string& str, const string searchString, const string replaceString);
 // подфункция TextProcessing
 
 int main(int argc, char* argv[])
@@ -28,8 +28,8 @@ int main(int argc, char* argv[])
 		return WRONG_AMOUNT_OF_ARGUMENTS_ERROR_CODE;
 	}
 
-	string inFileName = argv[1];
-	string outFileName = argv[2];
+	const string inFileName = argv[1];
+	const string outFileName = argv[2];
 	ifstream inFile(inFileName);
 	ofstream outFile(outFileName);
 	if (!inFile.is_open())
@@ -43,8 +43,8 @@ int main(int argc, char* argv[])
 		return NOT_OPENED_OUT_FILE_ERROR_CODE;
 	}
 
-	string searchString = argv[3];
-	string replaceString = argv[4];
+	const string searchString = argv[3];
+	const string replaceString = argv[4];
 	if (searchString == "")
 	{
 		cout << "The third argument can't be an empty string\n";
@@ -62,7 +62,7 @@ int main(int argc, char* argv[])
 	return 0;
 }
 
-void ReplaceNeedSubstringsInTheText(ifstream& inFile, ofstream& outFile, string searchString, string replaceString)
+void ReplaceNeedSubstringsInTheText(ifstream& inFile, ofstream& outFile, const string searchString, const string replaceString)
 {
 	string lineOfFile;
 	while (getline(inFile, lineOfFile))
@@ -74,7 +74,7 @@ void ReplaceNeedSubstringsInTheText(ifstream& inFile, ofstream& outFile, string 
 	}
 }
 
-void ReplaceSubstringsInTheString(string& str, string searchString, string replaceString)
+void ReplaceSubstringsInTheString(string& str, const string searchString, const string replaceString)
 {
 	size_t lastIndex = 0;
 	size_t newIndex;
