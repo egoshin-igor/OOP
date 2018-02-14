@@ -12,7 +12,6 @@ const int NOT_IN_NEED_RANGE_ERROR_CODE = 3;
 
 const int REQUIRED_NUMBER_OF_ARGUMENTS = 1;
 
-
 bool StringToInt(const char* str, int& i);
 bool IntToByte(int i, uint8_t& byte);
 uint8_t FlipByte(uint8_t i);
@@ -61,9 +60,9 @@ bool IntToByte(int i, uint8_t& byte)
 
 uint8_t FlipByte(uint8_t i)
 {
-	const uint8_t BIT_CHECKER = 1 << 7;
+	const uint8_t BIT_CHECKER = 1 << (8 - 1);
 	uint8_t flipByte = 0;
-	for (int bitIndex = 7; bitIndex >= 0; i <<= 1, --bitIndex)
+	for (int bitIndex = (8 - 1); bitIndex >= 0; i <<= 1, --bitIndex)
 		flipByte |= (i & BIT_CHECKER) >> bitIndex;
 	return flipByte;
 }
