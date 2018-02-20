@@ -18,14 +18,14 @@ uint8_t FlipByte(uint8_t i);
 
 int main(int argc, char* argv[])
 {
-	uint8_t byte;
-	int i;
 	if (argc != REQUIRED_NUMBER_OF_ARGUMENTS + 1)
 	{
 		cout << "Type only one argument in this format:\n";
 		cout << "flipbyte.exe <input byte>\n";
 		return WRONG_AMOUNT_OF_ARGUMENTS_ERROR_CODE;
 	}
+	uint8_t byte = 0;
+	int i = 0;
 	if (!StringToInt(argv[1], i))
 	{
 		cout << "First argument's not a number\n";
