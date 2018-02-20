@@ -10,7 +10,6 @@ using namespace std;
 const int WRONG_AMOUNT_OF_ARGUMENTS_ERROR_CODE = 1;
 const int NOT_OPENED_IN_FILE_ERROR_CODE = 2;
 const int NOT_OPENED_OUT_FILE_ERROR_CODE = 3;
-const int SEARCH_STRING_LENGTH_ERROR_CODE = 4;
 
 const int REQUIRED_NUMBER_OF_ARGUMENTS = 4;
 
@@ -45,11 +44,7 @@ int main(int argc, char* argv[])
 
 	const string searchString = argv[3];
 	const string replaceString = argv[4];
-	if (searchString == "")
-	{
-		cout << "The third argument can't be an empty string\n";
-		return SEARCH_STRING_LENGTH_ERROR_CODE;
-	}
+
 	ReplaceNeedSubstringsInTheText(inFile, outFile, searchString, replaceString);
 
 	if (!outFile.flush())
@@ -67,7 +62,8 @@ void ReplaceNeedSubstringsInTheText(ifstream& inFile, ofstream& outFile, const s
 	string lineOfFile;
 	while (getline(inFile, lineOfFile))
 	{
-		ReplaceSubstringsInTheString(lineOfFile, searchString, replaceString);
+		if (searchString != "")
+			ReplaceSubstringsInTheString(lineOfFile, searchString, replaceString);
 		outFile << lineOfFile;
 		if (!inFile.eof())
 			outFile << "\n";

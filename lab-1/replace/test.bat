@@ -13,9 +13,6 @@ rem Убрал проверку на закрытый output, потому что после клонирования с гита файл
 rem %PROGRAM% tests\input.txt tests\lockedOutput.txt abc cab
 rem IF NOT ERRORLEVEL 3 GOTO err
 
-%PROGRAM% tests\input.txt tests\output.txt "" cab
-IF NOT ERRORLEVEL 4 GOTO err
-
 %PROGRAM% tests\empty.txt tests\output.txt abc cab
 IF ERRORLEVEL 1 GOTO err
 FC tests\empty.txt tests\output.txt
