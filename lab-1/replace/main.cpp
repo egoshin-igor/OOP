@@ -13,7 +13,7 @@ const int NOT_OPENED_OUT_FILE_ERROR_CODE = 3;
 
 const int REQUIRED_NUMBER_OF_ARGUMENTS = 4;
 
-void ReplaceNeedSubstringsInTheText(ifstream& inFile, ofstream& outFile, const string& searchString, const string& replaceString);
+void ReplaceNeedSubstringsInTheText(istream& inFile, ostream& outFile, const string& searchString, const string& replaceString);
 // подфункция TextProcessing
 void ReplaceSubstringsInTheString(string& str, const string& searchString, const string& replaceString);
 // подфункция TextProcessing
@@ -30,12 +30,12 @@ int main(int argc, char* argv[])
 	const string inFileName = argv[1];
 	const string outFileName = argv[2];
 	ifstream inFile(inFileName);
-	ofstream outFile(outFileName);
 	if (!inFile.is_open())
 	{
 		cout << "The File " << inFileName << " can't be opened\n";
 		return NOT_OPENED_IN_FILE_ERROR_CODE;
 	}
+	ofstream outFile(outFileName);
 	if (!outFile.is_open())
 	{
 		cout << "The File " << outFileName << " can't be opened\n";
@@ -57,7 +57,7 @@ int main(int argc, char* argv[])
 	return 0;
 }
 
-void ReplaceNeedSubstringsInTheText(ifstream& inFile, ofstream& outFile, const string& searchString, const string& replaceString)
+void ReplaceNeedSubstringsInTheText(istream& inFile, ostream& outFile, const string& searchString, const string& replaceString)
 {
 	string lineOfFile;
 	while (getline(inFile, lineOfFile))
