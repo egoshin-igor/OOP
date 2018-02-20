@@ -14,9 +14,9 @@ const int SEARCH_STRING_LENGTH_ERROR_CODE = 4;
 
 const int REQUIRED_NUMBER_OF_ARGUMENTS = 4;
 
-void ReplaceNeedSubstringsInTheText(ifstream& inFile, ofstream& outFile, const string searchString, const string replaceString);
+void ReplaceNeedSubstringsInTheText(ifstream& inFile, ofstream& outFile, const string& searchString, const string& replaceString);
 // подфункция TextProcessing
-void ReplaceSubstringsInTheString(string& str, const string searchString, const string replaceString);
+void ReplaceSubstringsInTheString(string& str, const string& searchString, const string& replaceString);
 // подфункция TextProcessing
 
 int main(int argc, char* argv[])
@@ -62,7 +62,7 @@ int main(int argc, char* argv[])
 	return 0;
 }
 
-void ReplaceNeedSubstringsInTheText(ifstream& inFile, ofstream& outFile, const string searchString, const string replaceString)
+void ReplaceNeedSubstringsInTheText(ifstream& inFile, ofstream& outFile, const string& searchString, const string& replaceString)
 {
 	string lineOfFile;
 	while (getline(inFile, lineOfFile))
@@ -74,7 +74,7 @@ void ReplaceNeedSubstringsInTheText(ifstream& inFile, ofstream& outFile, const s
 	}
 }
 
-void ReplaceSubstringsInTheString(string& str, const string searchString, const string replaceString)
+void ReplaceSubstringsInTheString(string& str, const string& searchString, const string& replaceString)
 {
 	size_t lastIndex = 0;
 	size_t newIndex;
