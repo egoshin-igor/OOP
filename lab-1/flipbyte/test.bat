@@ -1,26 +1,34 @@
 set PROGRAM="%~1"
 
+echo not enough arguments
 %PROGRAM%
 IF NOT ERRORLEVEL 1 GOTO err
 
+echo so many arguments
 %PROGRAM% 11 22
 IF NOT ERRORLEVEL 1 GOTO err
 
+echo Arguments not a number
 %PROGRAM% notANumber
 IF NOT ERRORLEVEL 2 GOTO err
 
+echo empty Argument
 %PROGRAM% ""
 IF NOT ERRORLEVEL 2 GOTO err
 
+echo out of range - -1
 %PROGRAM% -1
 IF NOT ERRORLEVEL 3 GOTO err
 
+echo out of range - 256
 %PROGRAM% 256
 IF NOT ERRORLEVEL 3 GOTO err
 
+echo out of range - -67
 %PROGRAM% -67
 IF NOT ERRORLEVEL 3 GOTO err
 
+echo out of range - 456
 %PROGRAM% 456
 IF NOT ERRORLEVEL 3 GOTO err
 
