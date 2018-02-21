@@ -52,8 +52,6 @@ int main(int argc, char* argv[])
 		cout << "Failed to save data on disk\n";
 		return 1;
 	}
-	inFile.close();
-	outFile.close();
 	return 0;
 }
 
