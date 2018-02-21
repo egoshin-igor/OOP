@@ -14,9 +14,9 @@ const int NOT_OPENED_OUT_FILE_ERROR_CODE = 3;
 const int REQUIRED_NUMBER_OF_ARGUMENTS = 4;
 
 void ReplaceNeedSubstringsInTheText(istream& inFile, ostream& outFile, const string& searchString, const string& replaceString);
-// подфункция TextProcessing
-void ReplaceSubstringsInTheString(string& str, const string& searchString, const string& replaceString);
-// подфункция TextProcessing
+// подфункция ReplaceNeedSubstringsInTheText
+string GetChangedString(string& str, const string& searchString, const string& replaceString);
+// подфункция ReplaceNeedSubstringsInTheText
 
 int main(int argc, char* argv[])
 {
@@ -63,14 +63,18 @@ void ReplaceNeedSubstringsInTheText(istream& inFile, ostream& outFile, const str
 	while (getline(inFile, lineOfFile))
 	{
 		if (searchString != "")
-			ReplaceSubstringsInTheString(lineOfFile, searchString, replaceString);
+		{
+			lineOfFile = GetChangedString(lineOfFile, searchString, replaceString);
+		}
 		outFile << lineOfFile;
 		if (!inFile.eof())
+		{
 			outFile << "\n";
+		}
 	}
 }
 
-void ReplaceSubstringsInTheString(string& str, const string& searchString, const string& replaceString)
+string GetChangedString(string& str, const string& searchString, const string& replaceString)
 {
 	size_t lastIndex = 0;
 	size_t newIndex;
@@ -82,5 +86,5 @@ void ReplaceSubstringsInTheString(string& str, const string& searchString, const
 		lastIndex = newIndex + searchString.length();
 	}
 	tempString += str.substr(lastIndex);
-	str = tempString;
+	return tempString;
 }

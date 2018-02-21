@@ -53,7 +53,9 @@ bool StringToInt(const char* str, int& i)
 bool IntToByte(int i, uint8_t& byte)
 {
 	if (i < 0 || i > 255)
+	{
 		return false;
+	}
 	byte = static_cast<uint8_t>(i);
 	return true;
 }
@@ -63,6 +65,8 @@ uint8_t FlipByte(uint8_t i)
 	const uint8_t BIT_CHECKER = 1 << (8 - 1);
 	uint8_t flipByte = 0;
 	for (int bitIndex = (8 - 1); bitIndex >= 0; i <<= 1, --bitIndex)
+	{
 		flipByte |= (i & BIT_CHECKER) >> bitIndex;
+	}
 	return flipByte;
 }
