@@ -59,9 +59,13 @@ int main()
 					Help();
 				}
 			}
-			catch (const string& error)
+			catch (invalid_argument& error)
 			{
-				cout << error << '\n';
+				cout << error.what() << '\n';
+			}
+			catch (...)
+			{
+				cout << "Unexception error, Ups.\n";
 			}
 		}
 	}
@@ -98,7 +102,7 @@ void Let(Calculator& calculator)
 	auto equalPos = commandValue.find("=");
 	if (equalPos == string::npos || equalPos == commandValue.size() - 1)
 	{
-		throw (static_cast<const string&>("Incorrect command. Write Help for getting correct commands"));
+		throw invalid_argument("Incorrect command. Write Help for getting correct commands");
 	}
 
 	auto value = commandValue.substr(equalPos + 1, string::npos);
@@ -135,7 +139,7 @@ void Fn(Calculator& calculator)
 	auto equalPos = commandValue.find("=");
 	if (equalPos == string::npos || equalPos == commandValue.size() - 1)
 	{
-		throw (static_cast<const string&>("Incorrect command. Write Help for getting correct commands"));
+		throw invalid_argument("Incorrect command. Write Help for getting correct commands");
 	}
 
 	auto operationPos = commandValue.find_first_of("+-/*", equalPos);
