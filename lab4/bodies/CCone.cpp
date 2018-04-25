@@ -20,5 +20,5 @@ double CCone::GetHeight() const
 
 double CCone::GetVolume() const
 {
-	return (1 / 3) * m_height * M_PI *  pow(m_baseRadius, 2);
+	return ((double)1 / (double)3) * m_height * M_PI *  pow(m_baseRadius, 2);
 }

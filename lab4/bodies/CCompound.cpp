@@ -1,17 +1,24 @@
 #include "stdafx.h"
 #include "CCompound.h"
 
-CCompound::CCompound()
+CCompound::BodyParametrs CCompound::GetBodyParametrs(CBody const& body)
 {
+	CCompound::BodyParametrs params;
+	params.density = body.GetDensity();
+	params.mass = body.GetMass();
+	params.volume = body.GetVolume();
+	params.toString = body.ToString();
+	
+	return params;
 }
 
 double CCompound::GetVolume() const
 {
 	double sumVolume = 0;
-	for (size_t i = 0; i < bodiesPtr.size(); ++i)
+	for (size_t i = 0; i < m_bodies.size(); ++i)
 	{
-		auto child = *bodiesPtr[i];
-		sumVolume += child.GetVolume();
+		auto params = m_bodies[i];
+		sumVolume += params.volume;
 	}
 	return sumVolume;
 }
@@ -19,23 +26,17 @@ double CCompound::GetVolume() const
 double CCompound::GetMass() const
 {
 	double sumMass = 0;
-	for (size_t i = 0; i < bodiesPtr.size(); ++i)
+	for (size_t i = 0; i < m_bodies.size(); ++i)
 	{
-		auto child = *bodiesPtr[i];
-		sumMass += child.GetMass();
+		auto params = m_bodies[i];
+		sumMass += params.mass;
 	}
 	return sumMass;
 }
 
 double CCompound::GetDensity() const
 {
-	double sumDensity = 0;
-	for (size_t i = 0; i < bodiesPtr.size(); ++i)
-	{
-		auto child = *bodiesPtr[i];
-		sumDensity += child.GetDensity();
-	}
-	return sumDensity;
+	return GetMass() / GetVolume();
 }
 
 std::string CCompound::ToString() const
@@ -46,10 +47,10 @@ std::string CCompound::ToString() const
 		<< "\tvolume = " << GetVolume() << '\n'
 		<< "\tmass = " << GetMass() << '\n';
 	std::string str = strStream.str() + '\n';
-	for (size_t i = 0; i < bodiesPtr.size(); ++i)
+	for (size_t i = 0; i < m_bodies.size(); ++i)
 	{
-		auto child = *bodiesPtr[i];
-		str += child.ToString() + '\n';
+		auto params = m_bodies[i];
+		str += params.toString + '\n';
 	}
 	return str;
 }
@@ -60,7 +61,7 @@ bool CCompound::AddChildBody(CBody const& child)
 	{
 		return false;
 	}
-	auto childPtr = std::make_shared<CBody>(child);
-	bodiesPtr.push_back(childPtr);
+
+	m_bodies.push_back(CCompound::GetBodyParametrs(child));
 	return true;
 }

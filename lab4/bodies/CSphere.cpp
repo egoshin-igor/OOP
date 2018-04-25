@@ -14,5 +14,5 @@ double CSphere::GetRadius() const
 
 double CSphere::GetVolume() const
 {
-	return (4 / 3) * M_PI * pow(m_radius, 3);
+	return ((double)4 / (double)3) * M_PI * pow(m_radius, 3);
 }
