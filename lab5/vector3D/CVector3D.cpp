@@ -67,6 +67,11 @@ CVector3D const operator *(double scalar, CVector3D const& vector3)
 
 CVector3D const CVector3D::operator /(double scalar) const
 {
+	if (abs(scalar < E))
+	{
+		throw std::invalid_argument("Divizion by zero");
+	}
+
 	return CVector3D(x / scalar, y / scalar, z / scalar);
 }
 CVector3D const CVector3D::operator -() const
@@ -108,6 +113,11 @@ CVector3D const CVector3D::operator *=(double scalar)
 
 CVector3D const CVector3D::operator /=(double scalar)
 {
+	if (abs(scalar < E))
+	{
+		throw std::invalid_argument("Divizion by zero");
+	}
+
 	x /= scalar;
 	y /= scalar;
 	z /= scalar;
@@ -125,7 +135,11 @@ bool CVector3D::operator ==(CVector3D const& vector3) const
 
 bool CVector3D::operator !=(CVector3D const& vector3) const
 {
-	return !(*this == vector3);
+	auto notEqualX = abs(x - vector3.x) > E;
+	auto notEqualY = abs(y - vector3.y) > E;
+	auto notEqualZ = abs(z - vector3.z) > E;
+	return notEqualX || notEqualY || notEqualZ;
+	//return !(*this == vector3);
 }
 
 std::ostream& operator <<(std::ostream& stream, CVector3D const& vector3)

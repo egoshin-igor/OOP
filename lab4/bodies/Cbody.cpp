@@ -6,6 +6,11 @@ CBody::CBody()
 {
 }
 
+CBody::CBody(const std::string& type)
+	: m_type(type)
+{
+}
+
 CBody::CBody(const std::string& type, double density)
 	: m_density(density)
 	, m_type(type)
@@ -39,4 +44,9 @@ std::string CBody::ToString() const
 double CBody::GetVolume() const
 {
 	return 0.0;
+}
+
+std::string CBody::GetType()const
+{
+	return m_type;
 }

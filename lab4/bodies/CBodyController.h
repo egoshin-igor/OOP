@@ -19,9 +19,6 @@ public:
 	void HandleCommand();
 	std::shared_ptr<CBody> GetBodyWithMaxMass();
 	std::shared_ptr<CBody> GetBodyWithMinMassInWater();
-	void Help();
-
-	~CBodyController();
 private:
 	bool StringToDouble(const std::string& str, double& number);
 	void AddSphere(std::istream& args);
@@ -30,7 +27,8 @@ private:
 	void AddParallelepiped(std::istream& args);
 	void AddCompound();
 	void TypeInfoAboutBodies();
-	bool ChooseCommand(std::istream& stream, const std::string body);
+	bool ChooseBody(std::istream& stream, const std::string body);
+	void Help();
 
 	std::istream& m_input;
 	std::ostream& m_output;

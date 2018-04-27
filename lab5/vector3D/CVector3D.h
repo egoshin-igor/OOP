@@ -10,8 +10,8 @@ public:
 
 	double GetLength()const;
 	void Normalize();
-	double DotProduct(CVector3D const& v1, CVector3D const& v2);
-	CVector3D CrossProduct(CVector3D const& v1, CVector3D const& v2);
+	static double DotProduct(CVector3D const& v1, CVector3D const& v2);
+	static CVector3D CrossProduct(CVector3D const& v1, CVector3D const& v2);
 
 	CVector3D const operator +(CVector3D const& vector3)const;
 	CVector3D const operator -(CVector3D const& vector3)const;

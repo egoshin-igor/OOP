@@ -8,64 +8,83 @@ CBodyController::CBodyController(std::istream& input, std::ostream& output)
 	Help();
 }
 
-CBodyController::~CBodyController()
-{
-	TypeInfoAboutBodies();
-}
-
 void CBodyController::Help()
 {
-	std::cout << "This bodies are available:\n";
+	std::cout << "This commands are available:\n";
 	std::cout << "cone <baseRadius> <height> <density>\n";
 	std::cout << "cylinder <baseRadius> <height> <density>\n";
 	std::cout << "parallelepiped <height> <width> <depth> <density>\n";
 	std::cout << "sphere <density> <radius>\n";
 	std::cout << "compound\n";
+	std::cout << "info - information about bodies\n";
+	std::cout << "help - information about commands\n";
 }
 
 void CBodyController::HandleCommand()
 {
 	std::string line;
+	bool BodyIsChoosed = false;
 	getline(m_input, line);
 	if (m_input.eof() && line == "")
 	{
-		return ;
+		return;
 	}
 
 	std::istringstream stream(line);
-	std::string body;
-	stream >> body;
-	ChooseCommand(stream, body);
+	std::string command;
+	stream >> command;
+	
+	try 
+	{
+		ChooseBody(stream, command);
+	}
+	catch (std::invalid_argument& ex)
+	{
+		std::cout << ex.what();
+	}
 }
 
-bool CBodyController::ChooseCommand(std::istream& stream, const std::string body)
+bool CBodyController::ChooseBody(std::istream& stream, const std::string command)
 {
-	if (body == "sphere")
+	if (command == "sphere")
 	{
 		AddSphere(stream);
 		return true;
 	}
-	if (body == "cone")
+	if (command == "cone")
 	{
 		AddCone(stream);
 		return true;
 	}
-	if (body == "cylinder")
+	if (command == "cylinder")
 	{
 		AddCylinder(stream);
 		return true;
 	}
-	if (body == "parallelepiped")
+	if (command == "parallelepiped")
 	{
 		AddParallelepiped(stream);
 		return true;
 	}
-	if (body == "compound")
+	if (command == "compound")
 	{
 		AddCompound();
 		return true;
 	}
-	std::cout << "unknown command\n";
+	if (command == "help")
+	{
+		Help();
+		return true;
+	}
+	if (command == "info")
+	{
+		TypeInfoAboutBodies();
+		return true;
+	}
+	else
+	{
+		std::cout << "unknown command\n";
+	}
 	return false;
 }
 
@@ -75,24 +94,20 @@ void CBodyController::AddSphere(std::istream& args)
 
 	if (!(args >> radius))
 	{
-		m_output << "Cant read radius\n";
-		return;
+		throw std::invalid_argument("Cant read radius\n");
 	}
 
 	if (!(args >> density))
 	{
-		m_output << "Cant read density\n";
-		return;
+		throw std::invalid_argument("Cant read density\n");
 	}
 
 	double dRadius, dDensity;
 
 	if (!StringToDouble(radius, dRadius) || !StringToDouble(density, dDensity))
 	{
-		m_output << "One of args is not a number\n";
-		return;
+		throw std::invalid_argument("One of args is not a number\n");
 	}
-
 
 	std::shared_ptr<CSphere> bodyPtr(new CSphere(dDensity, dRadius));
 	m_bodies.push_back(std::move(bodyPtr));
@@ -104,28 +119,24 @@ void CBodyController::AddCone(std::istream& args)
 
 	if (!(args >> radius))
 	{
-		m_output << "Cant read radius\n";
-		return;
+		throw std::invalid_argument("Cant read radius\n");
 	}
 
 	if (!(args >> height))
 	{
-		m_output << "Cant read height\n";
-		return;
+		throw std::invalid_argument("Cant read height\n");
 	}
 
 	if (!(args >> density))
 	{
-		m_output << "Cant read density\n";
-		return;
+		throw std::invalid_argument("Cant read density\n");
 	}
 
 	double dRadius, dHeight, dDensity;
 
 	if (!StringToDouble(radius, dRadius) || !StringToDouble(density, dDensity) || !StringToDouble(density, dHeight))
 	{
-		m_output << "One of args is not a number\n";
-		return;
+		throw std::invalid_argument("One of args is not a number\n");
 	}
 
 	std::shared_ptr<CCone> bodyPtr(new CCone(dRadius, dHeight, dDensity));
@@ -138,34 +149,30 @@ void CBodyController::AddParallelepiped(std::istream& args)
 
 	if (!(args >> density))
 	{
-		m_output << "Cant read density\n";
-		return;
+		throw std::invalid_argument("Cant read density\n");
 	}
 
 	if (!(args >> height))
 	{
-		m_output << "Cant read height\n";
-		return;
+		throw std::invalid_argument("Cant read height\n");
 	}
 
 	if (!(args >> width))
 	{
-		m_output << "Cant read width\n";
+		throw std::invalid_argument("Cant read width\n");
 		return;
 	}
 
 	if (!(args >> depth))
 	{
-		m_output << "Cant read depth\n";
-		return;
+		throw std::invalid_argument("Cant read depth\n");
 	}
 
 	double dHeight, dWidth, dDepth, dDensity;
 
 	if (!StringToDouble(height, dHeight) || !StringToDouble(width, dWidth) || !StringToDouble(depth, dDepth) || !StringToDouble(density, dDensity))
 	{
-		m_output << "One of args is not a number\n";
-		return;
+		throw std::invalid_argument("One of args is not a number\n");
 	}
 
 	std::shared_ptr<CParallelepiped> bodyPtr(new CParallelepiped(dHeight, dWidth, dDepth, dDensity));
@@ -179,28 +186,24 @@ void CBodyController::AddCylinder(std::istream& args)
 
 	if (!(args >> radius))
 	{
-		m_output << "Cant read radius\n";
-		return;
+		throw std::invalid_argument("Cant read radius\n");
 	}
 
 	if (!(args >> height))
 	{
-		m_output << "Cant read height\n";
-		return;
+		throw std::invalid_argument("Cant read height\n");
 	}
 
 	if (!(args >> density))
 	{
-		m_output << "Cant read density\n";
-		return;
+		throw std::invalid_argument("Cant read density\n");
 	}
 
 	double dRadius, dHeight, dDensity;
 
 	if (!StringToDouble(radius, dRadius) || !StringToDouble(density, dDensity) || !StringToDouble(density, dHeight))
 	{
-		m_output << "One of args is not a number\n";
-		return;
+		throw std::invalid_argument("One of args is not a number\n");
 	}
 
 	std::shared_ptr<CCylinder> bodyPtr(new CCylinder(dRadius, dHeight, dDensity));
@@ -214,7 +217,7 @@ void CBodyController::AddCompound()
 	m_output << "Type <body name> parametrs for add a simple body to a compound one\n";
 	m_output << "Type <end> for stop add bodies\n";
 	CCompound compound;
-	bool haveChanges = false;
+	bool bodyIsChoosed = false;
 	while (!m_input.eof() || !m_input.fail())
 	{
 		getline(m_input, command);
@@ -222,11 +225,17 @@ void CBodyController::AddCompound()
 		{
 			std::istringstream stream(command);
 			stream >> body;
-			if (ChooseCommand(stream, body))
+			try 
 			{
-				haveChanges = true;
-				compound.AddChildBody((*m_bodies.back()));
-				m_bodies.pop_back();
+				if (ChooseBody(stream, body))
+				{
+					compound.AddChildBody((m_bodies.back()));
+					m_bodies.pop_back();
+				}
+			}
+			catch (std::invalid_argument& ex)
+			{
+				std::cout << ex.what();
 			}
 		}
 		else
@@ -234,11 +243,8 @@ void CBodyController::AddCompound()
 			break;
 		}
 	}
-	if (haveChanges)
-	{
-		auto bodyPtr = std::make_shared<CCompound>(compound);
-		m_bodies.push_back(std::move(bodyPtr));
-	}
+	auto bodyPtr = std::make_shared<CCompound>(compound);
+	m_bodies.push_back(std::move(bodyPtr));
 }
 
 std::shared_ptr<CBody> CBodyController::GetBodyWithMaxMass()
@@ -280,21 +286,26 @@ std::shared_ptr<CBody> CBodyController::GetBodyWithMinMassInWater()
 
 void CBodyController::TypeInfoAboutBodies()
 {
+	if (m_bodies.size() == 0)
+	{
+		m_output << "bodies not added yet\n";
+		return;
+	}
 	for (auto body : m_bodies)
 	{
-		m_output << (*body).ToString();
+		m_output << body->ToString();
 	}
 	m_output << "This is body with min mass in water:\n";
 	auto bodyPtr = GetBodyWithMinMassInWater();
 	if (bodyPtr != NULL)
 	{
-		m_output << (*bodyPtr).ToString();
+		m_output << bodyPtr->ToString();
 	}
 	m_output << "This is body with max mass:\n";
 	bodyPtr = GetBodyWithMaxMass();
 	if (bodyPtr != NULL)
 	{
-		m_output << (*bodyPtr).ToString();
+		m_output << bodyPtr->ToString();
 	}
 }
 
