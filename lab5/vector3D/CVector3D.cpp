@@ -31,6 +31,12 @@ void CVector3D::Normalize()
 	z *= invLength;
 }
 
+CVector3D CVector3D::Normalize(CVector3D const& v)
+{
+	auto invLength = 1 / v.GetLength();
+	return CVector3D(v.x * invLength, v.y * invLength, v.y * invLength);
+}
+
 double CVector3D::DotProduct(CVector3D const& v1, CVector3D const& v2)
 {
 	return (v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z);
