@@ -16,6 +16,8 @@ void CBodyController::Help()
 	std::cout << "parallelepiped <height> <width> <depth> <density>\n";
 	std::cout << "sphere <density> <radius>\n";
 	std::cout << "compound\n";
+	std::cout << "min - get body type witn min mass in water\n";
+	std::cout << "max - get body type witn max mass\n";
 	std::cout << "info - information about bodies\n";
 	std::cout << "help - information about commands\n";
 }
@@ -33,8 +35,8 @@ void CBodyController::HandleCommand()
 	std::istringstream stream(line);
 	std::string command;
 	stream >> command;
-	
-	try 
+
+	try
 	{
 		ChooseBody(stream, command);
 	}
@@ -81,9 +83,35 @@ bool CBodyController::ChooseBody(std::istream& stream, const std::string command
 		TypeInfoAboutBodies();
 		return true;
 	}
+	if (command == "min")
+	{
+		auto bodyPtr = GetBodyWithMaxMass();
+		if (bodyPtr != NULL)
+		{
+			m_output << bodyPtr->GetType() << '\n';
+		}
+		else
+		{
+			m_output << "bodies not added yet\n";
+		}
+		return true;
+	}
+	if (command == "max")
+	{
+		auto bodyPtr = GetBodyWithMaxMass();
+		if (bodyPtr != NULL)
+		{
+			m_output << bodyPtr->GetType() << '\n';
+		}
+		else
+		{
+			m_output << "bodies not added yet\n";
+		}
+		return true;
+	}
 	else
 	{
-		std::cout << "unknown command\n";
+		m_output << "unknown command\n";
 	}
 	return false;
 }
@@ -225,7 +253,7 @@ void CBodyController::AddCompound()
 		{
 			std::istringstream stream(command);
 			stream >> body;
-			try 
+			try
 			{
 				if (ChooseBody(stream, body))
 				{
@@ -251,11 +279,16 @@ std::shared_ptr<CBody> CBodyController::GetBodyWithMaxMass()
 {
 	if (m_bodies.size() != 0)
 	{
-		double maxMass = 0;
+		double maxMass = 0, currMass = 0;
 		size_t b = 0;
 		for (size_t i = 0; i < m_bodies.size(); ++i)
 		{
-			b = ((*m_bodies[i]).GetMass()) > maxMass ? i : b;
+			currMass = m_bodies[i]->GetMass();
+			if (currMass > maxMass)
+			{
+				maxMass = currMass;
+				b = i;
+			}
 		}
 		return std::shared_ptr<CBody>(m_bodies[b]);
 	}
@@ -269,14 +302,20 @@ std::shared_ptr<CBody> CBodyController::GetBodyWithMinMassInWater()
 		const double WATER_DENSITY = 1000;
 		const double G = 9.88;
 
-		double density, volume;
+		double density, volume, currMass;
 		double minMass = HUGE_VAL;
 		size_t b = 0;
 		for (size_t i = 0; i < m_bodies.size(); ++i)
 		{
-			density = (*m_bodies[i]).GetDensity();
-			volume = (*m_bodies[i]).GetVolume();
-			b = ((density - WATER_DENSITY) * G * volume) < minMass ? i : b;
+			density = m_bodies[i]->GetDensity();
+			volume = m_bodies[i]->GetVolume();
+			currMass = ((density - WATER_DENSITY) * G * volume);
+			//std::cout << std::to_string(currMass) << "\n";
+			if (currMass < minMass)
+			{
+				b = i;
+				minMass = currMass;
+			}
 		}
 		return std::shared_ptr<CBody>(m_bodies[b]);
 	}

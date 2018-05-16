@@ -20,9 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{1C187832-54BD-466E-994E-6E2FEB0921BA}</ProjectGuid>
+    <ProjectGuid>{5ECF56E6-B88F-4461-B89E-13C986259AD6}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>bodiesTest</RootNamespace>
+    <RootNamespace>httpParserTest</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -147,25 +147,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\bodies\Cbody.h" />
-    <ClInclude Include="..\bodies\CBodyController.h" />
-    <ClInclude Include="..\bodies\CCompound.h" />
-    <ClInclude Include="..\bodies\CCone.h" />
-    <ClInclude Include="..\bodies\CCylinder.h" />
-    <ClInclude Include="..\bodies\CParallelepiped.h" />
-    <ClInclude Include="..\bodies\CSphere.h" />
+    <ClInclude Include="..\httpParser\CHttpUrl.h" />
+    <ClInclude Include="..\httpParser\CUrlParsingError.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\bodies\Cbody.cpp" />
-    <ClCompile Include="..\bodies\CBodyController.cpp" />
-    <ClCompile Include="..\bodies\CCompound.cpp" />
-    <ClCompile Include="..\bodies\CCone.cpp" />
-    <ClCompile Include="..\bodies\CCylinder.cpp" />
-    <ClCompile Include="..\bodies\CParallelepiped.cpp" />
-    <ClCompile Include="..\bodies\CSphere.cpp" />
-    <ClCompile Include="bodiesTest.cpp" />
+    <ClCompile Include="..\httpParser\CHttpUrl.cpp" />
+    <ClCompile Include="..\httpParser\CUrlParsingError.cpp" />
+    <ClCompile Include="httpParserTest.cpp" />
     <ClCompile Include="main.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
