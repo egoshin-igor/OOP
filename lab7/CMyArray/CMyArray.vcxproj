@@ -20,9 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{3CFBBB7D-653A-4324-BDC8-26197FD225AF}</ProjectGuid>
+    <ProjectGuid>{054106EE-0AC3-471B-9766-F8263B32A6F7}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>FindMaxEx</RootNamespace>
+    <RootNamespace>CMyArray</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -147,13 +147,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Athletes.h" />
-    <ClInclude Include="FindMaxEx.h" />
+    <ClInclude Include="CMyArray.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Athletes.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
